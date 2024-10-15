@@ -31,13 +31,14 @@ const login = () => {
 const logout = () => {
   isLoggedIn.value = false;
   localStorage.removeItem("isLoggedIn");
+  // localStorage.removeItem("data-Machince");
   router.push("/");
 };
 </script>
 
 <template>
   <div class="container mx-auto">
-    <div class="navbar bg-base-100">
+    <div class="navbar bg-base-100 flex justify-between">
       <div class="flex-1">
         <RouterLink to="/" class="btn btn-ghost normal-case text-xl"
           >App Quick Clean</RouterLink
@@ -76,7 +77,7 @@ const logout = () => {
             <li><a @click="logout">Logout</a></li>
           </ul>
         </div>
-        <span>{{ name }}</span>
+        <span class="hidden md:inline">{{ name }}</span>
       </div>
     </div>
     <slot></slot>

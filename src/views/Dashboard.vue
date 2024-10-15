@@ -13,8 +13,9 @@ const isLoading = ref(false);
 const getdata = async () => {
   isLoading.value = true;
   const checkDataUser = localStorage.getItem("user-data");
-  console.log(checkDataUser);
+  // console.log(checkDataUser);
   if (checkDataUser) {
+    useMachine.setMachince();
     setTimeout(() => {
       isLoading.value = false;
     }, 5000);
@@ -39,7 +40,9 @@ onMounted(async () => {
     <WashMachine class="mb-4" />
   </UserLayout>
   <UserLayout v-else>
-    <div class="flex flex-row">
+    <div
+      class="flex flex-col md:flex-row items-center justify-center md:justify-start space-y-4 md:space-y-0 md:space-x-4"
+    >
       <div
         v-if="showAlert"
         :class="{ 'opacity-100': showAlert, 'opacity-0': !showAlert }"

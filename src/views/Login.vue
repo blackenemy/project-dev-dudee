@@ -27,6 +27,7 @@ const Login = () => {
 onMounted(() => {
   localStorage.removeItem("isLoggedIn");
   localStorage.removeItem("user-data");
+  localStorage.removeItem("data-Machince");
 });
 </script>
 

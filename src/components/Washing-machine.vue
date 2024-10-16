@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, computed, reactive, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter, useRoute, onBeforeRouteLeave } from "vue-router";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { Machine } from "@/stores/washing";
@@ -100,7 +100,8 @@ watch(
 const gotoMachine = (id) => {
   // console.log(id);
   // window.location.href = `/machine/${id}`;
-  router.push(`/machine/${id}`);
+  window.location.assign(`/machine/${id}`);
+  // router.push(`/machine/${id}`);
 };
 onMounted(async () => {
   await getmachine();

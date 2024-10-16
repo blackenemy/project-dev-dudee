@@ -8,6 +8,7 @@ import "vue3-toastify/dist/index.css";
 const useMachine = Machine();
 const route = useRoute();
 const router = useRouter();
+const isLoading = ref(false);
 //
 const props = defineProps({
   path_id: {
@@ -18,8 +19,12 @@ const props = defineProps({
 const machineDetails = ref(null);
 //
 const getdata = async () => {
-  // console.log(props.path_id);
-  machineDetails.value = useMachine.getMachineById(props.path_id);
+  isLoading.value = true;
+  console.log(isLoading.value);
+  if ((isLoading.value = true)) {
+    machineDetails.value = useMachine.getMachineById(props.path_id);
+    isLoading.value = false;
+  }
 
   console.log(machineDetails.value);
 };
@@ -56,9 +61,14 @@ const addCoin = async () => {
   }
   console.log(machineDetails.value);
 };
+const goBack = () => {
+  router.push(`/dashboard`);
+};
 
+console.log(isLoading.value);
 onMounted(async () => {
   await getdata();
+
   const checkDataUser = localStorage.getItem("user-data");
   if (!checkDataUser) {
     router.push("/");
@@ -139,6 +149,14 @@ onMounted(async () => {
             จะเก็บเงินในบัญชีคุณ 10 บาทต่อครั้งซึ่งจะได้ 10 นาที
             หากสถานะขึ้นแสดงว่า working คือเครื่องกำลังทำงานอยู่
           </p>
+        </div>
+        <div class="col-span-1 flex justify-center md:justify-end mt-4 md:mt-0">
+          <button
+            @click="goBack"
+            class="btn btn-error btn-secondary w-full md:w-auto"
+          >
+            กลับ
+          </button>
         </div>
       </div>
     </div>

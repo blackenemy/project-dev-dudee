@@ -43,13 +43,13 @@ const countdown = () => {
     }, 1000);
   }
 };
-const sendtoLine = async () => {
+const sendtoLine = async (message) => {
   const data = {
     to: "C5393d6f440b045f851a079b21e25b531",
     messages: [
       {
         type: "text",
-        text: "Hello, this is a message from LINE Bot!",
+        text: `${message}`,
       },
     ],
   };
@@ -68,7 +68,7 @@ watch(
         if (machine.time <= 60 && machine.time > 59) {
           const message = `เครื่อง ${machine.id} เหลือเวลา ${machine.time} เราจะแจ้งไปที่ไลน์ของคุณ`;
           toast.success(message, { position: "top-right" });
-          sendtoLine();
+          sendtoLine(message);
         }
       });
     } else {

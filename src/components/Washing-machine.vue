@@ -7,8 +7,11 @@ import { Machine } from "@/stores/washing";
 import axios from "axios";
 //
 const router = useRouter();
+const route = useRoute();
 const useMachine = Machine();
 //
+let intervalId = null;
+
 const getDataMachine = ref([]);
 const props = defineProps({
   path_id: {
@@ -23,26 +26,43 @@ const getmachine = async () => {
   if (DataMachine) {
     const data = JSON.parse(DataMachine);
     getDataMachine.value = data;
-    console.log(getDataMachine.value);
+    // console.log(getDataMachine.value);
   }
 };
+
 const countdown = () => {
-  if (getDataMachine.value.length > 0) {
-    setInterval(() => {
+  if (intervalId) {
+    clearInterval(intervalId);
+    intervalId = null;
+  }
+  if (getDataMachine.value.length > 0 && route.path === "/dashboard") {
+    intervalId = setInterval(() => {
+      let hasChanges = false;
+
       getDataMachine.value.forEach((machine) => {
         if (machine.status === "working" && machine.time > 0) {
           machine.time--;
+          hasChanges = true;
         } else if (machine.time <= 0 && machine.status === "working") {
           machine.status = "not working";
+          hasChanges = true;
         }
       });
-      localStorage.setItem(
-        "data-Machine",
-        JSON.stringify(getDataMachine.value)
-      );
+      if (hasChanges) {
+        localStorage.setItem(
+          "data-Machine",
+          JSON.stringify(getDataMachine.value)
+        );
+      }
     }, 1000);
   }
 };
+
+window.addEventListener("beforeunload", () => {
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+});
 const sendtoLine = async (message) => {
   const data = {
     to: "C5393d6f440b045f851a079b21e25b531",
@@ -66,7 +86,7 @@ watch(
     if (Machine) {
       Machine.forEach((machine) => {
         if (machine.time <= 60 && machine.time > 59) {
-          const message = `เครื่อง ${machine.id} เหลือเวลา ${machine.time} เราจะแจ้งไปที่ไลน์ของคุณ`;
+          const message = `เครื่อง ${machine.id} ใกล้หมดเวลาแล้ว`;
           toast.success(message, { position: "top-right" });
           sendtoLine(message);
         }
@@ -79,7 +99,7 @@ watch(
 );
 const gotoMachine = (id) => {
   // console.log(id);
-  router.push(`/machine/${id}`);
+  window.location.href = `/machine/${id}`;
 };
 onMounted(async () => {
   await getmachine();

@@ -18,14 +18,14 @@ const props = defineProps({
 const machineDetails = ref(null);
 //
 const getdata = async () => {
-  console.log(props.path_id);
+  // console.log(props.path_id);
   machineDetails.value = useMachine.getMachineById(props.path_id);
 
   console.log(machineDetails.value);
 };
 const addCoin = async () => {
   if (machineDetails.value.status === "working") {
-    const newTime = machineDetails.value.time + 70;
+    const newTime = machineDetails.value.time + 600;
     const res = await useMachine.updateMachine(
       `${props.path_id}`,
       machineDetails.value.status,
@@ -34,7 +34,9 @@ const addCoin = async () => {
     if (res === true) {
       toast.success("คุณได้หยอดเหรียญเพิ่ม", {
         position: "top-right",
-        duration: 3000,
+        onClose: () => {
+          getdata();
+        },
       });
     }
   } else {
@@ -46,7 +48,9 @@ const addCoin = async () => {
     if (res === true) {
       toast.success("คุณได้หยอดเหรียญเพิ่ม", {
         position: "top-right",
-        duration: 3000,
+        onClose: () => {
+          getdata();
+        },
       });
     }
   }

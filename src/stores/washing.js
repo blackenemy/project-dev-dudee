@@ -37,9 +37,6 @@ export const Machine = defineStore({
                 this.DataMachine[machineIndex].status = status;
                 this.DataMachine[machineIndex].time = time;
                 localStorage.setItem("data-Machine", JSON.stringify(this.DataMachine));
-
-
-                this.startCountdown();
             }
             return true;
         },

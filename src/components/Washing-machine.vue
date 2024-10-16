@@ -99,7 +99,8 @@ watch(
 );
 const gotoMachine = (id) => {
   // console.log(id);
-  window.location.href = `/machine/${id}`;
+  // window.location.href = `/machine/${id}`;
+  router.push("/machine/${id}");
 };
 onMounted(async () => {
   await getmachine();

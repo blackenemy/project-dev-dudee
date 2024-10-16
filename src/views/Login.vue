@@ -80,7 +80,9 @@ onMounted(() => {
 
       <!-- Submit Button -->
       <div class="form-control mt-4">
-        <button @click="Login" class="btn btn-primary">Submit</button>
+        <button @click="Login" class="btn btn-outline btn-success">
+          Submit
+        </button>
       </div>
     </div>
   </div>

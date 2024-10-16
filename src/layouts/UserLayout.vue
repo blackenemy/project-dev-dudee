@@ -1,18 +1,20 @@
 <script setup>
 import { ref, onMounted, resolveDirective } from "vue";
-import { RouterLink, useRouter } from "vue-router";
+import { RouterLink, useRouter, useRoute } from "vue-router";
 
 const isLoggedIn = ref(false);
 const searchText = ref("");
 const router = useRouter();
+const route = useRoute();
 const name = ref("");
 const props = defineProps({
-  data: {
+  path_id: {
     type: String,
   },
 });
-
+const path = ref(route.path);
 onMounted(() => {
+  // console.log(route.path, props.path_id);
   const checkDataUser = localStorage.getItem("user-data");
   if (checkDataUser) {
     const data = JSON.parse(checkDataUser);
@@ -40,20 +42,11 @@ const logout = () => {
   <div class="container mx-auto">
     <div class="navbar bg-base-100 flex justify-between">
       <div class="flex-1">
-        <RouterLink to="/" class="btn btn-ghost normal-case text-xl"
+        <RouterLink to="/dashboard" class="btn btn-ghost normal-case text-xl"
           >App Quick Clean</RouterLink
         >
       </div>
       <div class="flex-none gap-2">
-        <div class="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            class="input input-bordered w-24 md:w-auto"
-            v-model="searchText"
-          />
-        </div>
-
         <button @click="login" v-if="!isLoggedIn" class="btn btn-ghost">
           Login
         </button>

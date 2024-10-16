@@ -48,7 +48,7 @@ const addCoin = async () => {
     const res = await useMachine.updateMachine(
       `${props.path_id}`,
       "working",
-      70
+      600
     );
     if (res === true) {
       toast.success("คุณได้หยอดเหรียญเพิ่ม", {

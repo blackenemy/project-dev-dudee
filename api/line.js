@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default async function handler(req, res) {
-    const token = 'pLDyq0ID/UApVff75E8Y81yMSF4NO7frbHTcf3OtwYQqGVUqngKZWe6avv9Rqx1+RX9ITNj9JajgI8T5ifqdO5rxnDb6/vRDHkL0COupH5fAGU7vaOGpC/g5+t6t7ZizAQRNPtCklkoY/t7EFH/x9AdB04t89/1O/w1cDnyilFU=';
+    const token = 'PwvFeAbjqKKlue81sEG71DwZlh8EBaULCsnC7S0V9PuczeP62SW01/OlnMLB14DcBiDiPSxvGv8XNP2aP3qYVF2RGUWLcO/yL44zKNZTzK3sS1r+C7WOyj2TLnFMjItrm9eVA51+jZ0e6SVSblCcTwdB04t89/1O/w1cDnyilFU=';
 
     try {
         const response = await axios.post('https://api.line.me/v2/bot/message/push', req.body, {

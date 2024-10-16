@@ -2,6 +2,9 @@
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import UserLayout from "@/layouts/UserLayout.vue";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+//
 const username = ref("");
 const password = ref("");
 const showPassword = ref(false);
@@ -21,6 +24,9 @@ const Login = () => {
     localStorage.setItem("isLoggedIn", true);
     router.push("/dashboard");
   } else {
+    toast.error("รหัสผ่านหรือชื่อผู้ใช้ผิด", {
+      position: "top-right",
+    });
     console.log("Invalid credentials");
   }
 };

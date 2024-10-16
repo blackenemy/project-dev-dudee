@@ -63,9 +63,12 @@ window.addEventListener("beforeunload", () => {
     clearInterval(intervalId);
   }
 });
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5173", // fallback ไปที่ localhost เมื่อไม่มี environment variable
+});
 const sendtoLine = async (message) => {
   const data = {
-    to: "C5393d6f440b045f851a079b21e25b531",
+    to: "Cddd744fcce78cbd27562bb1086a15bcb",
     messages: [
       {
         type: "text",
@@ -74,7 +77,7 @@ const sendtoLine = async (message) => {
     ],
   };
   try {
-    const response = await axios.post("/api/line", data);
+    const response = await axios.post(`/api/line`, data);
     console.log("Message sent:", response.data);
   } catch (error) {
     console.error("Error sending message:", error);
@@ -86,9 +89,9 @@ watch(
     if (Machine) {
       Machine.forEach((machine) => {
         if (machine.time <= 60 && machine.time > 59) {
-          const message = `เครื่อง ${machine.id} ใกล้หมดเวลาแล้ว`;
+          const message = `เครื่องซักผ้า เครื่องที่ : ${machine.id} ใกล้หมดเวลาแล้ว`;
           toast.success(message, { position: "top-right" });
-          sendtoLine(message);
+          // sendtoLine(message);
         }
       });
     } else {

@@ -2,6 +2,8 @@
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import UserLayout from "@/layouts/UserLayout.vue";
+import Footer from "@/layouts/Footer.vue";
+import Hero from "@/layouts/Hero.vue";
 import WashMachine from "@/components/Washing-machine.vue";
 import { Machine } from "@/stores/washing";
 import { toast } from "vue3-toastify";
@@ -44,15 +46,25 @@ onMounted(async () => {
 </script>
 <template>
   <UserLayout v-if="isLoading != true">
-    <WashMachine class="mb-4" />
+    <template #hero>
+      <Hero />
+    </template>
+    <template #content>
+      <WashMachine class="mb-4" />
+    </template>
+    <template #footer>
+      <Footer />
+    </template>
   </UserLayout>
   <UserLayout v-else>
-    <div
-      class="flex flex-col md:flex-row items-center justify-center md:justify-start space-y-4 md:space-y-0 md:space-x-4"
-    ></div>
-    <div class="flex items-center justify-center w-full h-screen">
-      <span class="loading loading-dots loading-lg"></span>
-    </div>
+    <template #content>
+      <div
+        class="flex flex-col md:flex-row items-center justify-center md:justify-start space-y-4 md:space-y-0 md:space-x-4"
+      ></div>
+      <div class="flex items-center justify-center w-full h-screen">
+        <span class="loading loading-dots loading-lg"></span>
+      </div>
+    </template>
   </UserLayout>
 </template>
 

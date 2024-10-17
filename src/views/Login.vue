@@ -92,4 +92,8 @@ onMounted(() => {
       </div>
     </div>
   </div>
+  <div class="flex justify-center">
+    <p>username : user</p>
+    <p class="ml-4">password : password</p>
+  </div>
 </template>

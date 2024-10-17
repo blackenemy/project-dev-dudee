@@ -64,7 +64,7 @@ window.addEventListener("beforeunload", () => {
   }
 });
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5173", // fallback ไปที่ localhost เมื่อไม่มี environment variable
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5173",
 });
 const sendtoLine = async (message) => {
   const data = {
@@ -91,7 +91,7 @@ watch(
         if (machine.time <= 60 && machine.time > 59) {
           const message = `เครื่องซักผ้า เครื่องที่ : ${machine.id} ใกล้หมดเวลาแล้ว`;
           toast.success(message, { position: "top-right" });
-          // sendtoLine(message);
+          sendtoLine(message);
         }
       });
     } else {
@@ -156,9 +156,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-
-
-
-<style lang="scss" scoped>
-</style>
